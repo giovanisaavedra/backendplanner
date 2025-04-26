@@ -1,4 +1,4 @@
-# main.py (versão 2.0 definitiva)
+# main.py (versão corrigida)
 
 from generator import BackendPlanner
 from drawio_creator import DrawioCreator
@@ -19,7 +19,7 @@ def add_entity(planner):
     actions = [action.strip() for action in actions_raw.split(",")]
     planner.add_entity(entity_name, actions)
 
-def list_entities(planner):
+def list_all_entities(planner):
     planner.list_entities()
 
 def edit_entity(planner):
@@ -27,7 +27,7 @@ def edit_entity(planner):
         print("\nNo entities to edit.")
         return
 
-    list_entities(planner)
+    list_all_entities(planner)
     try:
         index = int(input("\nEnter the number of the entity you want to edit: ")) - 1
         if 0 <= index < len(planner.entities):
@@ -53,7 +53,7 @@ def delete_entity(planner):
         print("\nNo entities to delete.")
         return
 
-    list_entities(planner)
+    list_all_entities(planner)
     try:
         index = int(input("\nEnter the number of the entity you want to delete: ")) - 1
         if 0 <= index < len(planner.entities):
@@ -83,7 +83,7 @@ def main():
         if choice == "1":
             add_entity(planner)
         elif choice == "2":
-            list_entities(planner)
+            list_all_entities(planner)
         elif choice == "3":
             edit_entity(planner)
         elif choice == "4":
