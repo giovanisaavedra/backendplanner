@@ -1,4 +1,4 @@
-# drawio_creator.py (versão corrigida)
+# drawio_creator.py (versão melhorada - entidades + métodos + endpoints)
 
 import os
 from xml.etree.ElementTree import Element, SubElement, tostring
@@ -10,35 +10,65 @@ class DrawioCreator:
         self.output_folder = output_folder
 
     def generate_drawio_xml(self):
-        # Base structure for Draw.io file
         mxfile = Element('mxfile', host="app.diagrams.net")
         diagram = SubElement(mxfile, 'diagram', name="API Diagram")
         mxGraphModel = SubElement(diagram, 'mxGraphModel')
         root = SubElement(mxGraphModel, 'root')
 
-        # Required base cells for Draw.io
         SubElement(root, 'mxCell', id="0")
         SubElement(root, 'mxCell', id="1", parent="0")
 
-        # Create boxes for each entity
         x_position = 20
         y_position = 20
 
         for idx, entity in enumerate(self.entities, start=2):
             cell_id = str(idx)
-            mxCell = SubElement(root, 'mxCell', id=cell_id, value=entity['name'], style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;", vertex="1", parent="1")
-            mxGeometry = SubElement(mxCell, 'mxGeometry', x=str(x_position), y=str(y_position), width="160", height="60")
+
+            # Montar o conteúdo da caixa (nome da entidade + métodos)
+            content = f"<b>{entity['name']}</b><br>"
+            for action in entity['actions']:
+                action = action.lower()
+                endpoint = self.map_action_to_endpoint(action, entity['name'])
+                content += f"+ {action.upper()} {endpoint}<br>"
+
+            mxCell = SubElement(root, 'mxCell', id=cell_id, value=content, style="shape=swimlane;rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;", vertex="1", parent="1")
+            mxGeometry = SubElement(mxCell, 'mxGeometry', x=str(x_position), y=str(y_position), width="200", height="160")
             mxGeometry.set('as', 'geometry')
 
-            # Update position for next entity
-            x_position += 200
-            if x_position > 800:
+            # Atualizar posição para próxima entidade
+            x_position += 250
+            if x_position > 1000:
                 x_position = 20
-                y_position += 100
+                y_position += 200
 
         xml_str = tostring(mxfile, encoding="utf-8")
         pretty_xml = parseString(xml_str).toprettyxml(indent="  ")
         return pretty_xml
+
+    def map_action_to_endpoint(self, action, entity_name):
+        entity_path = entity_name.lower()
+        if action == "create":
+            return f"POST /{entity_path}/"
+        elif action == "read":
+            return f"GET /{entity_path}/"
+        elif action == "update":
+            return f"PUT /{entity_path}/{{id}}"
+        elif action == "delete":
+            return f"DELETE /{entity_path}/{{id}}"
+        elif action == "upload":
+            return f"POST /{entity_path}/upload"
+        elif action == "download":
+            return f"GET /{entity_path}/download"
+        elif action == "generate":
+            return f"POST /{entity_path}/generate"
+        elif action == "view":
+            return f"GET /{entity_path}/view"
+        elif action == "send":
+            return f"POST /{entity_path}/send"
+        elif action == "analyze":
+            return f"POST /{entity_path}/analyze"
+        else:
+            return f"/{entity_path}/"
 
     def save_drawio_file(self):
         if not os.path.exists(self.output_folder):
