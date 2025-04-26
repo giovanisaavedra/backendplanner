@@ -1,4 +1,4 @@
-# drawio_creator.py (versão melhorada - entidades + métodos + endpoints)
+# drawio_creator.py (versão com altura dinâmica das caixas)
 
 import os
 from xml.etree.ElementTree import Element, SubElement, tostring
@@ -24,22 +24,24 @@ class DrawioCreator:
         for idx, entity in enumerate(self.entities, start=2):
             cell_id = str(idx)
 
-            # Montar o conteúdo da caixa (nome da entidade + métodos)
+            # Montar conteúdo da caixa (nome da entidade + métodos)
             content = f"<b>{entity['name']}</b><br>"
             for action in entity['actions']:
                 action = action.lower()
                 endpoint = self.map_action_to_endpoint(action, entity['name'])
                 content += f"+ {action.upper()} {endpoint}<br>"
 
+            # Calcular altura dinâmica: base 60 + 20 para cada ação
+            height = 60 + (len(entity['actions']) * 20)
+
             mxCell = SubElement(root, 'mxCell', id=cell_id, value=content, style="shape=swimlane;rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;", vertex="1", parent="1")
-            mxGeometry = SubElement(mxCell, 'mxGeometry', x=str(x_position), y=str(y_position), width="200", height="160")
+            mxGeometry = SubElement(mxCell, 'mxGeometry', x=str(x_position), y=str(y_position), width="220", height=str(height))
             mxGeometry.set('as', 'geometry')
 
-            # Atualizar posição para próxima entidade
-            x_position += 250
+            x_position += 280
             if x_position > 1000:
                 x_position = 20
-                y_position += 200
+                y_position += 250
 
         xml_str = tostring(mxfile, encoding="utf-8")
         pretty_xml = parseString(xml_str).toprettyxml(indent="  ")
