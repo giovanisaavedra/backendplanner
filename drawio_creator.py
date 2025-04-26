@@ -1,4 +1,4 @@
-# drawio_creator.py
+# drawio_creator.py (versão corrigida)
 
 import os
 from xml.etree.ElementTree import Element, SubElement, tostring
@@ -12,8 +12,8 @@ class DrawioCreator:
     def generate_drawio_xml(self):
         # Base structure for Draw.io file
         mxfile = Element('mxfile', host="app.diagrams.net")
-        diagram = SubElement(mxfile, 'diagram', name="API Diagram", id="1")
-        mxGraphModel = SubElement(diagram, 'mxGraphModel', dx="1000", dy="1000", grid="1", gridSize="10")
+        diagram = SubElement(mxfile, 'diagram', name="API Diagram")
+        mxGraphModel = SubElement(diagram, 'mxGraphModel')
         root = SubElement(mxGraphModel, 'root')
 
         # Required base cells for Draw.io
@@ -25,12 +25,14 @@ class DrawioCreator:
         y_position = 20
 
         for idx, entity in enumerate(self.entities, start=2):
-            mxCell = SubElement(root, 'mxCell', id=str(idx), value=f"{entity['name']}\n{', '.join(entity['actions'])}",
-                                style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;", vertex="1", parent="1")
-            geometry = SubElement(mxCell, 'mxGeometry', x=str(x_position), y=str(y_position), width="160", height="60", as_="geometry")
+            cell_id = str(idx)
+            mxCell = SubElement(root, 'mxCell', id=cell_id, value=entity['name'], style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;", vertex="1", parent="1")
+            mxGeometry = SubElement(mxCell, 'mxGeometry', x=str(x_position), y=str(y_position), width="160", height="60")
+            mxGeometry.set('as', 'geometry')
 
+            # Update position for next entity
             x_position += 200
-            if x_position > 1000:
+            if x_position > 800:
                 x_position = 20
                 y_position += 100
 
