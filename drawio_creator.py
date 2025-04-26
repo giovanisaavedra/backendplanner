@@ -1,4 +1,4 @@
-# drawio_creator.py (versão final com quebra de linha e indentado)
+# drawio_creator.py (versão final corrigida - usando <br> para quebras de linha)
 
 import os
 from xml.etree.ElementTree import Element, SubElement, tostring
@@ -26,14 +26,14 @@ class DrawioCreator:
 
             header = entity['name']
 
-            # Corpo com indentacao e quebra de linha
+            # Corpo com indentacao e <br> para separação de linha
             body_lines = []
             for action in entity['actions']:
                 action = action.lower()
                 endpoint = self.map_action_to_endpoint(action, entity['name'])
                 body_lines.append(f"  + {action.upper()} {endpoint}")
 
-            body_content = '\n'.join(body_lines)
+            body_content = '<br>'.join(body_lines)
 
             # Calcular altura dinâmica: base 80 + 20 por ação
             height = 80 + (len(entity['actions']) * 20)
