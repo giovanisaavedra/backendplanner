@@ -37,6 +37,7 @@ With Backend Planner, you can focus on clean architecture and scalability from d
     generator.py               # Core logic for entity and action management
     prompt_creator.py          # Backend prompt generation for AI
     drawio_creator.py          # Visual diagram generator
+    run_backend_planner.py     # Main launcher for the application
     README.md                  # Project documentation
     LICENSE                    # MIT License
     requirements.txt           # Project dependencies
@@ -66,29 +67,40 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. Run the Streamlit app:
+---
+
+## 🌟 How to Start
+
+To launch the Backend Planner, simply run:
 
 ```bash
-streamlit run main_streamlit.py
+python run_backend_planner.py
 ```
 
-Access the app at [http://localhost:8501](http://localhost:8501).
+From the launcher menu, you can:
+
+- Run the Terminal CLI
+- Run the Streamlit Visual App
+- Generate the AI backend prompt
+- Generate the Draw.io API diagram
+
+All outputs will be saved automatically inside the `/outputs/` directory.
 
 ---
 
 ## 📋 Usage Instructions
 
-1. Use the Streamlit web app to:
-   - Register new entities and define actions (CRUD or custom)
-   - List and manage all registered entities
-   - Save entities for later use
-   - Generate a backend prompt text ready for AI tools
-   - Generate a Draw.io visual diagram for your backend structure
+- Use the Terminal CLI or the Streamlit web app to:
+  - Register new entities and define actions (CRUD or custom)
+  - List and manage all registered entities
+  - Save entities for later use
+  - Generate a backend prompt text ready for AI tools
+  - Generate a Draw.io visual diagram for your backend structure
 
-2. All outputs will be available inside the `/outputs/` directory:
-   - `entities.json` — stored entities
-   - `backend_prompt.txt` — AI backend generation prompt
-   - `api_diagram.drawio` — visual API diagram
+- Outputs generated:
+  - `entities.json` — stored entities
+  - `backend_prompt.txt` — AI backend generation prompt
+  - `api_diagram.drawio` — visual API diagram
 
 ---
 
