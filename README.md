@@ -1,169 +1,110 @@
-# 🛠️ Backend Planner
+# Backend Planner CLI
 
-## 📚 Project Overview
-
-**Backend Planner** is a modular, developer-friendly tool designed to streamline backend architecture planning. It enables developers to register entities and actions, automatically generating:
-
-- AI-ready backend prompts (for FastAPI, SQLAlchemy, Pydantic)
-- Visual API diagrams (.drawio files compatible with diagrams.net)
-- Structured outputs that accelerate backend system development
-
-With Backend Planner, you can focus on clean architecture and scalability from day one, saving countless hours of manual design work.
+Backend Planner CLI is a lightweight yet powerful tool for structuring backend architectures. It empowers developers to model entities, actions, and APIs while automatically generating clear, professional-grade diagrams for technical planning.
 
 ---
 
-## 🚀 Tech Stack
+## ✨ Features
 
-- **Python 3.10+**
-- **Streamlit** (for the interactive visual interface)
-- **Standard Python libraries**:
-  - `json`
-  - `xml.etree.ElementTree`
-  - `os`
-- **Draw.io (diagrams.net)** compatible XML generation
-
----
-
-## 🏗️ Project Structure
-
-```
-/backend-planner/
-    /outputs/
-        entities.json          # Saved list of entities and actions
-        backend_prompt.txt     # AI-ready backend prompt text
-        api_diagram.drawio     # Visual diagram for APIs
-    main.py                    # Terminal-based CLI
-    main_streamlit.py          # Streamlit web app (visual interface)
-    generator.py               # Core logic for entity and action management
-    prompt_creator.py          # Backend prompt generation for AI
-    drawio_creator.py          # Visual diagram generator
-    run_backend_planner.py     # Main launcher for the application
-    README.md                  # Project documentation
-    LICENSE                    # MIT License
-    requirements.txt           # Project dependencies
-```
+- 📅 Add, edit, delete, and list backend entities
+- 👉 Define actions (Create, Read, Update, Delete) per entity
+- 📊 Automatically generate Draw.io diagrams:
+  - Entity names highlighted in a blue header
+  - RESTful methods and endpoints neatly organized below
+- 📊 Dynamic diagram sizing based on entity complexity
+- 🛠️ 100% command-line driven for maximum control and speed
 
 ---
 
-## 📦 Installation Guide
+## 🚀 Getting Started
 
-1. Clone the repository:
+### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/backendplanner.git
-cd backendplanner
+git clone https://github.com/your-username/backend-planner.git
+cd backend-planner
 ```
 
-2. Create and activate a virtual environment:
-
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-3. Install the required dependencies:
+### 2. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-## 🌟 How to Start
-
-To launch the Backend Planner, simply run:
+### 3. Launch Backend Planner
 
 ```bash
-python run_backend_planner.py
+python main.py
 ```
 
-From the launcher menu, you can:
-
-- Run the Terminal CLI
-- Run the Streamlit Visual App
-- Generate the AI backend prompt
-- Generate the Draw.io API diagram
-
-All outputs will be saved automatically inside the `/outputs/` directory.
-
 ---
 
-## 📋 Usage Instructions
+## 🔢 How It Works
 
-- Use the Terminal CLI or the Streamlit web app to:
-  - Register new entities and define actions (CRUD or custom)
-  - List and manage all registered entities
-  - Save entities for later use
-  - Generate a backend prompt text ready for AI tools
-  - Generate a Draw.io visual diagram for your backend structure
+- Add entities and assign supported actions.
+- Edit or delete entities easily.
+- Start a new list to create fresh project structures.
+- Generate a clean Draw.io diagram for instant documentation.
 
-- Outputs generated:
-  - `entities.json` — stored entities
-  - `backend_prompt.txt` — AI backend generation prompt
-  - `api_diagram.drawio` — visual API diagram
+### Example CLI Menu
 
----
+```plaintext
+=== Backend Planner CLI ===
 
-## ✨ Key Features
-
-- 📋 Register and manage backend entities and actions
-- 🔍 Auto-generate backend prompts for AI (optimized for GPT-4 and similar LLMs)
-- 📈 Auto-generate Draw.io visual diagrams for APIs
-- 🎨 Streamlit-based web app interface
-- 💾 Local persistence of data
-- 🔥 Modular, extensible architecture ready for collaboration
-
----
-
-## 💪 How to Contribute
-
-Contributions are highly welcome! 🚀
-To contribute:
-
-1. Fork the repository.
-2. Create a new feature branch:
-
-```bash
-git checkout -b feature/YourFeature
+1. Add a new entity
+2. List all entities
+3. Edit an existing entity
+4. Delete an existing entity
+5. Start new list (clear all entities)
+6. Generate Draw.io API Diagram
+7. Save and exit
 ```
 
-3. Commit your changes:
+---
 
-```bash
-git commit -m "Add new feature"
+## 🖊️ Example Diagram Output
+
+Each entity appears as:
+
+- **Blue header** showing the entity name
+- **White body** listing associated methods and REST endpoints with clean indentation
+
+Example:
+
+```plaintext
+User
+--------------------------
+  + CREATE POST /user/
+  + READ   GET /user/
+  + UPDATE PUT /user/{id}
+  + DELETE DELETE /user/{id}
 ```
 
-4. Push to the branch:
+---
 
-```bash
-git push origin feature/YourFeature
-```
+## 📈 Roadmap
 
-5. Open a pull request.
-
-Let's make Backend Planner even better together!
+- ✨ Entity-to-entity relationship visualization (arrows)
+- ✨ Export backend models to OpenAPI and JSON formats
+- ✨ Streamlit visual interface enhancement
+- ✨ Dark mode diagram themes
 
 ---
 
-## 🛡️ License
+## 📄 License
 
-This project is licensed under the **MIT License**.
-You are free to use, modify, and distribute it with proper attribution.
-
----
-
-## 👨‍💻 Author
-
-**Giovani Saavedra**
-
-> Designed with a passion for clean backend architectures and AI-driven development automation.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 📨 Contact
+## 🚀 Why Use Backend Planner CLI?
 
-For questions, suggestions, or collaborations, feel free to open an issue or pull request.
+Backend Planner CLI was created to:
 
----
+- ✨ Simplify early-stage backend modeling
+- ✨ Improve documentation speed and consistency
+- ✨ Provide full developer control without heavy tools
+- ✨ Encourage clean architectural thinking from the start
 
-# Thank you for using Backend Planner! Let's build smarter backends together! 🚀
+Built by developers, for developers who value **clarity, scalability, and clean code**. 🚀
+
