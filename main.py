@@ -1,4 +1,4 @@
-# main.py (versão corrigida definitiva)
+# main.py (versão FINAL corrigida)
 
 from generator import BackendPlanner
 from drawio_creator import DrawioCreator
@@ -73,6 +73,7 @@ def generate_diagram(planner):
     creator = DrawioCreator(planner.entities)
     creator.save_drawio_file()
     print("\n✅ Draw.io diagram generated successfully! (Check outputs/api_diagram.drawio)")
+    input("\nPress Enter to continue...")
 
 def main():
     planner = BackendPlanner()
