@@ -1,4 +1,4 @@
-# main.py (versão corrigida)
+# main.py (versão corrigida definitiva)
 
 from generator import BackendPlanner
 from drawio_creator import DrawioCreator
@@ -21,6 +21,7 @@ def add_entity(planner):
 
 def list_all_entities(planner):
     planner.list_entities()
+    input("\nPress Enter to continue...")
 
 def edit_entity(planner):
     if not planner.entities:
