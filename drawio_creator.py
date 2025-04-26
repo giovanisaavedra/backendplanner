@@ -1,9 +1,8 @@
-# drawio_creator.py (versão final corrigida - swimlane original com header azul)
+# drawio_creator.py (versão final com quebra de linha e indentado)
 
 import os
 from xml.etree.ElementTree import Element, SubElement, tostring
 from xml.dom.minidom import parseString
-
 
 class DrawioCreator:
     def __init__(self, entities, output_folder="outputs"):
@@ -25,33 +24,26 @@ class DrawioCreator:
         for idx, entity in enumerate(self.entities, start=2):
             cell_id = str(idx)
 
-            # Header será apenas o nome da entidade
             header = entity['name']
 
-            # Corpo com métodos e endpoints
+            # Corpo com indentacao e quebra de linha
             body_lines = []
             for action in entity['actions']:
                 action = action.lower()
                 endpoint = self.map_action_to_endpoint(action, entity['name'])
-                body_lines.append(f"+ {action.upper()} {endpoint}")
+                body_lines.append(f"  + {action.upper()} {endpoint}")
 
             body_content = '\n'.join(body_lines)
 
-            # Calcular altura dinâmica: base 60 + 20 para cada linha adicional
-            height = 60 + (len(entity['actions']) * 20)
+            # Calcular altura dinâmica: base 80 + 20 por ação
+            height = 80 + (len(entity['actions']) * 20)
 
-            mxCell = SubElement(root, 'mxCell', id=cell_id, value=header,
-                                style="shape=swimlane;rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;",
-                                vertex="1", parent="1")
-            mxGeometry = SubElement(mxCell, 'mxGeometry', x=str(x_position), y=str(y_position), width="260",
-                                    height=str(height))
+            mxCell = SubElement(root, 'mxCell', id=cell_id, value=header, style="shape=swimlane;rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;", vertex="1", parent="1")
+            mxGeometry = SubElement(mxCell, 'mxGeometry', x=str(x_position), y=str(y_position), width="260", height=str(height))
             mxGeometry.set('as', 'geometry')
 
-            # Definir o corpo (description) do swimlane
-            mxCell2 = SubElement(root, 'mxCell', value=body_content,
-                                 style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;",
-                                 vertex="1", parent=cell_id)
-            mxGeometry2 = SubElement(mxCell2, 'mxGeometry', x="0", y="30", width="260", height=str(height - 30))
+            mxCell2 = SubElement(root, 'mxCell', value=body_content, style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;", vertex="1", parent=cell_id)
+            mxGeometry2 = SubElement(mxCell2, 'mxGeometry', x="0", y="50", width="260", height=str(height - 50))
             mxGeometry2.set('as', 'geometry')
 
             x_position += 300
